@@ -1,19 +1,19 @@
-CREATE TABLE area
+CREATE TABLE myarea
 (
   areaID INT NOT NULL,
   areaName VARCHAR(20) NOT NULL,
   PRIMARY KEY (areaID)
 );
 
-CREATE TABLE city
+CREATE TABLE mycity
 (
   cityName VARCHAR(20) NOT NULL,
   areaID INT,
   PRIMARY KEY (cityName),
-  FOREIGN KEY (areaID) REFERENCES area(areaID)
+  FOREIGN KEY (areaID) REFERENCES myarea(areaID)
 );
 
-CREATE TABLE agent
+CREATE TABLE myagent
 (
   agentID INT NOT NULL,
   agentName CHAR(20) NOT NULL,
@@ -23,10 +23,9 @@ CREATE TABLE agent
   salary FLOAT NOT NULL,
   areaID INT NOT NULL,
   PRIMARY KEY (agentID),
-  FOREIGN KEY (areaID) REFERENCES area(areaID)
+  FOREIGN KEY (areaID) REFERENCES myarea(areaID)
 );
-
-CREATE TABLE client
+CREATE TABLE myclient
 (
   clientID INT NOT NULL,
   clientName VARCHAR(20) NOT NULL,
@@ -36,16 +35,16 @@ CREATE TABLE client
   agentID INT NOT NULL,
   cityName VARCHAR(20) NOT NULL,
   PRIMARY KEY (clientID),
-  FOREIGN KEY (agentID) REFERENCES agent(agentID),
-  FOREIGN KEY (cityName) REFERENCES city(cityName)
+  FOREIGN KEY (agentID) REFERENCES myagent(agentID),
+  FOREIGN KEY (cityName) REFERENCES mycity(cityName)
 );
 
-CREATE TABLE schedule
+CREATE TABLE myschedule
 (
   meetingTIme DATE NOT NULL,
   agentID INT NOT NULL,
   clientID INT NOT NULL,
   PRIMARY KEY (meetingTIme, agentID, clientID),
-  FOREIGN KEY (agentID) REFERENCES agent(agentID),
-  FOREIGN KEY (clientID) REFERENCES client(clientID)
+  FOREIGN KEY (agentID) REFERENCES myagent(agentID),
+  FOREIGN KEY (clientID) REFERENCES myclient(clientID)
 );
